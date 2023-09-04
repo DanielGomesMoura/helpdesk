@@ -1,25 +1,39 @@
 package com.Daniel.helpdesk.domain;
 
 import com.Daniel.helpdesk.domain.enums.Perfil;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.*;
 import lombok.Data;
 
-
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data
-public abstract class Pessoa {
+@Entity
+public abstract class Pessoa implements Serializable{
+    private static final long SerialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
     protected String nome;
+
+    @Column(unique = true)
     protected String cpf;
+
+    @Column(unique = true)
     protected String email;
     protected String senha;
-    protected Set<Integer> perfis = new HashSet<>();
-    protected LocalDate datacriacao = LocalDate.now();
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "PERFIS")
+    protected Set<Integer> perfis = new HashSet<>();
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    protected LocalDate datacriacao = LocalDate.now();
 
     public Pessoa(){
         super();
@@ -35,13 +49,11 @@ public abstract class Pessoa {
         this.senha = senha;
         addPerfil(Perfil.CLIENTE);
     }
-    public Set<Perfil> getPerfis(){
+    public Set<Perfil> getPerfils(){
     return perfis.stream().map(Perfil::toEnum).collect(Collectors.toSet());
 }
     public void addPerfil(Perfil perfil){
     this.perfis.add(perfil.getCodigo());
 }
-
-
 
 }
