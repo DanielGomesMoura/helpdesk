@@ -44,12 +44,13 @@ public abstract class Pessoa implements Serializable{
     @Setter
     protected String senha;
 
-    @JsonIgnore
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "PERFIS")
     protected Set<Integer> perfis = new HashSet<>();
 
     @JsonFormat(pattern = "dd/MM/yyyy")
+    @Getter
+    @Setter
     protected LocalDate datacriacao = LocalDate.now();
 
     public Pessoa(){
@@ -67,7 +68,7 @@ public abstract class Pessoa implements Serializable{
         addPerfil(Perfil.CLIENTE);
     }
 
-    public Set<Perfil> getPerfil() {
+    public Set<Perfil> getPerfis() {
         return perfis.stream().map(Perfil::toEnum).collect(Collectors.toSet());
     }
 
