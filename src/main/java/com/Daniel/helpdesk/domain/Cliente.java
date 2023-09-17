@@ -1,6 +1,7 @@
 package com.Daniel.helpdesk.domain;
 
 import com.Daniel.helpdesk.domain.enums.Perfil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
@@ -16,8 +17,9 @@ import java.util.List;
 public class Cliente extends Pessoa{
     private static final long SerialVersionUID = 1L;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
-    private List<Chamado> chamados = new ArrayList<>();
+    private List<Chamado> chamados = new ArrayList<>    ();
 
     public Cliente(Integer id, String nome, String cpf, String email, String senha) {
         super(id, nome, cpf, email, senha);
