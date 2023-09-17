@@ -20,28 +20,66 @@ public abstract class Pessoa implements Serializable{
 
     @Id
     @EqualsAndHashCode.Include
-    @Getter
-    @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
 
-    @Getter
-    @Setter
     protected String nome;
 
-    @Getter
-    @Setter
     @EqualsAndHashCode.Include
     @Column(unique = true)
     protected String cpf;
 
-    @Getter
-    @Setter
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public LocalDate getDatacriacao() {
+        return datacriacao;
+    }
+
+    public void setDatacriacao(LocalDate datacriacao) {
+        this.datacriacao = datacriacao;
+    }
+
     @Column(unique = true)
     protected String email;
 
-    @Getter
-    @Setter
     protected String senha;
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -49,8 +87,7 @@ public abstract class Pessoa implements Serializable{
     protected Set<Integer> perfis = new HashSet<>();
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @Getter
-    @Setter
+
     protected LocalDate datacriacao = LocalDate.now();
 
     public Pessoa(){
