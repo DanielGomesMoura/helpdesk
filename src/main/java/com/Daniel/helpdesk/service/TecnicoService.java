@@ -7,6 +7,9 @@ import com.Daniel.helpdesk.repositories.PessoaRepository;
 import com.Daniel.helpdesk.repositories.TecnicoRepository;
 import com.Daniel.helpdesk.service.exception.DataIntegrityViolationException;
 import com.Daniel.helpdesk.service.exception.ObjectNotFoundException;
+
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +46,19 @@ public class TecnicoService {
     	if(obj.isPresent() && obj.get().getId() != objDTO.getId()) {
     		throw new DataIntegrityViolationException("CPF já cadastrado");
     	}
+    	
+    	obj = pessoaRepository.findByEmail(objDTO.getEmail());
+    	if(obj.isPresent() && obj.get().getId() != objDTO.getId()) {
+    		throw new DataIntegrityViolationException("Email já cadastrado");
+    	}
     }
+
+	public Tecnico update(Integer id, @Valid TecnicoDTO objDTO) {
+		objDTO.setId(id);
+		Tecnico oldObj = findById(id);
+		validaCpfEmail(objDTO);
+		oldObj = new Tecnico(objDTO);
+		return repository.save(oldObj);		
+	}
 
 }

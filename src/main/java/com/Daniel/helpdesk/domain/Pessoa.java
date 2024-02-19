@@ -14,6 +14,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 @Entity
 public abstract class Pessoa implements Serializable{
     private static final long SerialVersionUID = 1L;
@@ -25,6 +27,7 @@ public abstract class Pessoa implements Serializable{
 
     protected String nome;
 
+    @CPF
     @EqualsAndHashCode.Include
     @Column(unique = true)
     protected String cpf;

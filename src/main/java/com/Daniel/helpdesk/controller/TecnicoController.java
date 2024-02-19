@@ -3,6 +3,9 @@ package com.Daniel.helpdesk.controller;
 import com.Daniel.helpdesk.domain.Tecnico;
 import com.Daniel.helpdesk.domain.dto.TecnicoDTO;
 import com.Daniel.helpdesk.service.TecnicoService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,4 +41,11 @@ public class TecnicoController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
+     
+     @PutMapping(value = "/{id}")
+     public ResponseEntity<TecnicoDTO> update(@PathVariable Integer id, @Valid @RequestBody TecnicoDTO objDTO){
+    	 Tecnico obj = service.update(id, objDTO);
+    	 return ResponseEntity.ok().body(new TecnicoDTO(obj));
+     }
+     
 }
