@@ -11,7 +11,9 @@ import com.Daniel.helpdesk.service.exception.ObjectNotFoundException;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -61,4 +63,13 @@ public class TecnicoService {
 		return repository.save(oldObj);		
 	}
 
+	public void delete(Integer id) {
+		Tecnico obj = findById(id);
+		if(obj.getChamados().size() > 0) {
+			throw new DataIntegrityViolationException("Técnico possui ordens de serviços e não pode ser deletado");
+		}
+		repository.deleteById(id);
+		
+	}
+	
 }

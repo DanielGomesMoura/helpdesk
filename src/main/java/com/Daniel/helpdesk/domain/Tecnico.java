@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.context.support.ApplicationObjectSupport;
+
 @Entity
 @Getter
 @Setter
@@ -23,7 +25,15 @@ public class Tecnico extends Pessoa{
     @OneToMany(mappedBy = "tecnico")
     private List<Chamado> chamados = new ArrayList<>();
 
-    public Tecnico(Integer id, String nome, String cpf, String email, String senha) {
+    public List<Chamado> getChamados() {
+		return chamados;
+	}
+
+	public void setChamados(List<Chamado> chamados) {
+		this.chamados = chamados;
+	}
+
+	public Tecnico(Integer id, String nome, String cpf, String email, String senha) {
         super(id, nome, cpf, email, senha);
         addPerfil(Perfil.TECNICO);
     }
@@ -42,6 +52,7 @@ public class Tecnico extends Pessoa{
         this.senha = objDTO.getSenha();
         this.perfis = objDTO.getPerfis().stream().map(Perfil::getCodigo).collect(Collectors.toSet());
         this.datacriacao = objDTO.getDatacriacao();
+
     }
 
 
