@@ -28,7 +28,7 @@ public enum Perfil {
                 return x;
             }
         }
-            throw new IllegalArgumentException("Perfil Invalido");
+            throw new IllegalAccessError("Perfil Invalido");
     }
 }
 

@@ -28,7 +28,7 @@ public enum Status {
                 return x;
             }
         }
-            throw new IllegalArgumentException("Status Invalido");
+            throw new IllegalAccessError("Perfil Invalido");
     }
 }
 

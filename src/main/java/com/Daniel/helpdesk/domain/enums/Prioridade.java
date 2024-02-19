@@ -28,7 +28,7 @@ public enum Prioridade {
                 return x;
             }
         }
-            throw new IllegalArgumentException("Prioridade Invalida");
+            throw new IllegalAccessError("Perfil Invalido");
     }
 }
 

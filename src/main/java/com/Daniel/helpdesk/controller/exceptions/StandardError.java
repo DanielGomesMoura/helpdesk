@@ -1,17 +1,55 @@
 package com.Daniel.helpdesk.controller.exceptions;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-import javax.management.ConstructorParameters;
 import java.io.Serializable;
 
-@Data
 public class StandardError implements Serializable {
-    private static final long SerialVersionUID = 1L;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private Long timestamp;
+    public Long getTimestamp() {
+		return timestamp;
+	}
 
-    private Long timestamp;
-    private Integer status;
+	public void setTimestamp(Long timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	private Integer status;
 
     private String error;
     private String message;
