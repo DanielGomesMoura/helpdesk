@@ -6,22 +6,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.context.support.ApplicationObjectSupport;
-
 @Entity
 @Getter
 @Setter
 public class Tecnico extends Pessoa{
-    private static final long SerialVersionUID = 1L;
-
-    @JsonIgnore
+	private static final long serialVersionUID = 1L;
+	
+	@JsonIgnore
     @OneToMany(mappedBy = "tecnico")
     private List<Chamado> chamados = new ArrayList<>();
 

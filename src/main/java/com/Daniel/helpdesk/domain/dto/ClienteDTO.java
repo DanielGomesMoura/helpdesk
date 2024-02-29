@@ -1,10 +1,8 @@
-package com.Daniel.helpdesk.domain;
+package com.Daniel.helpdesk.domain.dto;
 
+import com.Daniel.helpdesk.domain.Cliente;
 import com.Daniel.helpdesk.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -12,25 +10,17 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.hibernate.validator.constraints.br.CPF;
 
-@Entity
-public abstract class Pessoa implements Serializable{
+public class ClienteDTO implements Serializable {
    
 	private static final long serialVersionUID = 1L;
-
-	@Id
-    @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
-
+	
+	protected Integer id;
     protected String nome;
-
-    @CPF()
-    @EqualsAndHashCode.Include
-    @Column(unique = true)
     protected String cpf;
-
+    protected String email;
+    protected String senha;
+    
     public Integer getId() {
         return id;
     }
@@ -70,6 +60,12 @@ public abstract class Pessoa implements Serializable{
     public void setSenha(String senha) {
         this.senha = senha;
     }
+    public Set<Perfil> getPerfis() {
+        return perfis.stream().map(Perfil::toEnum).collect(Collectors.toSet());
+    }
+    public void addPerfil(Perfil perfil) {
+        this.perfis.add(perfil.getCodigo());
+    }
 
     public LocalDate getDatacriacao() {
         return datacriacao;
@@ -78,39 +74,25 @@ public abstract class Pessoa implements Serializable{
     public void setDatacriacao(LocalDate datacriacao) {
         this.datacriacao = datacriacao;
     }
-
-    @Email
-    @Column(unique = true)
-    protected String email;
-
-    protected String senha;
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "PERFIS")
+  
     protected Set<Integer> perfis = new HashSet<>();
-
     @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate datacriacao = LocalDate.now();
 
-    public Pessoa(){
+    public ClienteDTO(){
+    super();
+    addPerfil(Perfil.CLIENTE);
+    }
+    
+    public ClienteDTO(Cliente obj) {
         super();
+        this.id = obj.getId();
+        this.nome = obj.getNome();
+        this.cpf = obj.getCpf();
+        this.email = obj.getEmail();
+        this.senha = obj.getSenha();
+        this.perfis = obj.getPerfis().stream().map(Perfil::getCodigo).collect(Collectors.toSet());
+        this.datacriacao = obj.getDatacriacao();
+        addPerfil(Perfil.CLIENTE);
     }
-
-    public Pessoa(Integer id, String nome, String cpf, String email, String senha) {
-        super();
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
-        this.senha = senha;
-    }
-
-    public Set<Perfil> getPerfis() {
-        return perfis.stream().map(Perfil::toEnum).collect(Collectors.toSet());
-    }
-
-    public void addPerfil(Perfil perfil){
-    this.perfis.add(perfil.getCodigo());
-}
-
 }

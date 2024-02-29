@@ -9,8 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.management.ConstructorParameters;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 @Getter

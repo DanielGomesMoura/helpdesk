@@ -4,6 +4,8 @@ import com.Daniel.helpdesk.domain.Tecnico;
 import com.Daniel.helpdesk.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.validation.constraints.NotNull;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -12,13 +14,23 @@ import java.util.stream.Collectors;
 
 
 public class TecnicoDTO implements Serializable {
-    private static final long SerialVersionUID = 1L;
-
-    protected Integer id;
+   
+	private static final long serialVersionUID = 1L;
+	
+	protected Integer id;
+	
+	@NotNull(message = "O campo NOME é requerido")
     protected String nome;
+	@NotNull(message = "O campo CPF é requerido")
     protected String cpf;
+	@NotNull(message = "O campo EMAIL é requerido")
     protected String email;
+	@NotNull(message = "O campo SENHA é requerido")
     protected String senha;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	protected LocalDate datacriacao = LocalDate.now();
+	 
+	protected Set<Integer> perfis = new HashSet<>();
     
     public Integer getId() {
         return id;
@@ -73,10 +85,6 @@ public class TecnicoDTO implements Serializable {
     public void setDatacriacao(LocalDate datacriacao) {
         this.datacriacao = datacriacao;
     }
-  
-    protected Set<Integer> perfis = new HashSet<>();
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    protected LocalDate datacriacao = LocalDate.now();
 
     public TecnicoDTO(){
     super();
