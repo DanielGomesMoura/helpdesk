@@ -19,7 +19,7 @@ public class ControllerExceptionHendler{
     		HttpServletRequest request){
 
         StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(),
-        		"Técnico não encontrado", ex.getMessage(), request.getRequestURI());
+        		"Objeto não encontrado", ex.getMessage(), request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
