@@ -1,5 +1,6 @@
 package com.Daniel.helpdesk.domain;
 
+import com.Daniel.helpdesk.domain.dto.ChamadoDTO;
 import com.Daniel.helpdesk.domain.enums.Prioridade;
 import com.Daniel.helpdesk.domain.enums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
