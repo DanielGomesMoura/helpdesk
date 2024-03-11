@@ -1,5 +1,7 @@
 package com.Daniel.helpdesk.service;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +16,8 @@ import com.Daniel.helpdesk.domain.enums.Prioridade;
 import com.Daniel.helpdesk.domain.enums.Status;
 import com.Daniel.helpdesk.repositories.ChamadoRepository;
 import com.Daniel.helpdesk.service.exception.ObjectNotFoundException;
+
+import jakarta.validation.Valid;
 
 @Service
 public class ChamadoService {
@@ -36,6 +40,16 @@ public class ChamadoService {
 		return chamadoRepository.findAll();
 	}
 
+	public Chamado create(@Valid ChamadoDTO objDTO) {
+		return chamadoRepository.save(newChamado(objDTO));
+	}
+
+	public Chamado update(Integer id, @Valid ChamadoDTO objDTO) {
+		objDTO.setId(id);
+		Chamado oldObj = findById(id);
+		oldObj = newChamado(objDTO);
+		return chamadoRepository.save(oldObj);
+	}
 	
 	private Chamado newChamado(ChamadoDTO obj) {
 		Tecnico tecnico = tecnicoService.findById(obj.getTecnico());
@@ -46,6 +60,10 @@ public class ChamadoService {
 			chamado.setId(obj.getId());
 		}
 		
+		if(obj.getStatus().equals(2)){
+		 chamado.setDataFechamento(LocalDate.now());
+		}
+		
 		chamado.setTecnico(tecnico);
 		chamado.setCliente(cliente);
 		chamado.setPrioridade(Prioridade.toEnum(obj.getPrioridade()));
@@ -54,9 +72,5 @@ public class ChamadoService {
 		chamado.setObservacoes(obj.getObservacoes());
 		return chamado;
 	
-	}
-
-	public Chamado create(ChamadoDTO objDTO) {
-		return chamadoRepository.save(newChamado(objDTO));
 	}
 	}
