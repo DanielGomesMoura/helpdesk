@@ -8,11 +8,13 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 public abstract class Pessoa implements Serializable{
@@ -112,5 +114,4 @@ public abstract class Pessoa implements Serializable{
     public void addPerfil(Perfil perfil){
     this.perfis.add(perfil.getCodigo());
 }
-
 }

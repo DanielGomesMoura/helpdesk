@@ -9,8 +9,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 @Getter
@@ -51,6 +54,4 @@ public class Tecnico extends Pessoa{
         this.datacriacao = objDTO.getDatacriacao();
 
     }
-
-
 }
