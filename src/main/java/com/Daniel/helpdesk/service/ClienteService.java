@@ -11,6 +11,10 @@ import com.Daniel.helpdesk.service.exception.ObjectNotFoundException;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
+=======
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+>>>>>>> master
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +27,9 @@ public class ClienteService {
     private ClienteRepository repository;
     @Autowired
     private PessoaRepository pessoaRepository;
+    
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     public Cliente findById(Integer id){
         Optional<Cliente> obj = repository.findById(id);
@@ -34,8 +41,14 @@ public class ClienteService {
     }
 
       public Cliente create(ClienteDTO objDTO){
+
         objDTO.setId(null);
         validaCpfEmail(objDTO);
+
+        objDTO.setId(null);  
+        validaCpfEmail(objDTO);
+        objDTO.setSenha(encoder.encode(objDTO.getSenha())); 
+
         Cliente obj = new Cliente(objDTO);
         return repository.save(obj);
     }
@@ -57,6 +70,10 @@ public class ClienteService {
 		objDTO.setId(id);
 		Cliente oldObj = findById(id);
 		validaCpfEmail(objDTO);
+
+
+		objDTO.setSenha(encoder.encode(objDTO.getSenha())); 
+
 		oldObj = new Cliente(objDTO);
 		return repository.save(oldObj);		
 	}
