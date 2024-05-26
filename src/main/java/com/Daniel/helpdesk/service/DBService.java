@@ -7,16 +7,9 @@ import com.Daniel.helpdesk.domain.enums.Perfil;
 import com.Daniel.helpdesk.domain.enums.Prioridade;
 import com.Daniel.helpdesk.domain.enums.Status;
 import com.Daniel.helpdesk.repositories.ChamadoRepository;
-import com.Daniel.helpdesk.repositories.ClienteRepository;
-<<<<<<< HEAD
-import com.Daniel.helpdesk.repositories.TecnicoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-=======
 import com.Daniel.helpdesk.repositories.PessoaRepository;
-import com.Daniel.helpdesk.repositories.TecnicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
->>>>>>> master
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;

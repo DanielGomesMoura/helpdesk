@@ -7,14 +7,9 @@ import com.Daniel.helpdesk.repositories.PessoaRepository;
 import com.Daniel.helpdesk.repositories.TecnicoRepository;
 import com.Daniel.helpdesk.service.exception.DataIntegrityViolationException;
 import com.Daniel.helpdesk.service.exception.ObjectNotFoundException;
-
 import jakarta.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
-=======
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
->>>>>>> master
 import org.springframework.stereotype.Service;
 
 import java.util.List;
