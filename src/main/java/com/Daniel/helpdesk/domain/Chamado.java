@@ -1,6 +1,5 @@
 package com.Daniel.helpdesk.domain;
 
-import com.Daniel.helpdesk.domain.dto.ChamadoDTO;
 import com.Daniel.helpdesk.domain.enums.Prioridade;
 import com.Daniel.helpdesk.domain.enums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -14,7 +13,6 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 public class Chamado{
 
@@ -42,10 +40,6 @@ public class Chamado{
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
-
-    public Chamado() {
-    	super();
-    }
     
     public Chamado(Integer id, Prioridade prioridade, Status status, String titulo, String observacoes, Tecnico tecnico, Cliente cliente) {
         super();
@@ -57,6 +51,9 @@ public class Chamado{
         this.tecnico = tecnico;
         this.cliente = cliente;
     }
+
+	public Chamado() {
+	}
 
 	public Integer getId() {
 		return id;
