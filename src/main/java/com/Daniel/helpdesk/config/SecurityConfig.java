@@ -1,6 +1,5 @@
 package com.Daniel.helpdesk.config;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,6 +42,7 @@ public class SecurityConfig{
                 .addFilter(new JWTAuthorizationFilter(authenticationConfiguration.getAuthenticationManager(),jwtUtil,detailsService))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authoriza -> authoriza .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/login")).permitAll() // Permitir acesso ao /login
                 .anyRequest().authenticated())
 				.build();
     }
@@ -62,12 +62,15 @@ public class SecurityConfig{
 //	    @Bean
 //	    public CorsConfigurationSource corsConfigurationSource() {
 //	        CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
-//	        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-//	        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//	        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+//	        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+//	        corsConfiguration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+//	        corsConfiguration.setAllowCredentials(true);
+//	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 //	        source.registerCorsConfiguration("/**", corsConfiguration);
 //	        return source;
 //	    }
-//	 
+	 
 	    @Bean
 	     BCryptPasswordEncoder bCryptPasswordEncoder() {
 	        return new BCryptPasswordEncoder();
