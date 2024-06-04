@@ -37,7 +37,6 @@ public class TecnicoController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-
      @PostMapping
     public ResponseEntity<TecnicoDTO> create(@Valid @RequestBody TecnicoDTO objDTO){
         Tecnico obj = service.create(objDTO);
